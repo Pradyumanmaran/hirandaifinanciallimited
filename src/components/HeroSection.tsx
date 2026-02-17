@@ -88,16 +88,16 @@ const HeroSection = () => {
     <div 
       className="relative bg-cover bg-center py-16" 
       style={{
-        backgroundImage: `url('https://s3.ap-south-1.amazonaws.com/cdn.lendingstack.in/lendingstack/tenant/Edelweiss_background.jpg')`
+        backgroundImage: `url('https://cdn.lendingstack.in/lendingstack/system/hfs-login-background.png')`
       }}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="w-[70%]">
-          <h1 className="text-6xl font-bold text-white mb-6">
-            Welcome to SME Finance
+          <h1 className="text-6xl font-bold text-gray-50y mb-6">
+            {/*Welcome to HFS Finance*/}
           </h1>
-          <p className="text-2xl text-white/90">
-            Your trusted partner in home financing solutions
+          <p className="text-2xl text-gray-50/90">
+            {/*Your trusted partner in home financing solutions*/}
           </p>
         </div>
         <div className="w-[30%] bg-white p-6 rounded-lg shadow-lg">
@@ -152,6 +152,7 @@ const HeroSection = () => {
               <option value="bikaner">Bikaner</option>
               <option value="bilaspur">Bilaspur</option>
               <option value="chennai">Chennai</option>
+              <option value="CBE-GANDHIPURAM">Cbe Gandhipuram</option>
               <option value="gwalior">Gwalior</option>
               <option value="hyderabad">Hyderabad</option>
               <option value="indore">Indore</option>
@@ -161,6 +162,7 @@ const HeroSection = () => {
               <option value="jodhpur">Jodhpur</option>
               <option value="kalyan">Kalyan</option>
               <option value="lucknow">Lucknow</option>
+              <option value="MADURAI">Madurai</option>
               <option value="mumbai">Mumbai</option>
               <option value="nagpur">Nagpur</option>
               <option value="nashik">Nashik</option>

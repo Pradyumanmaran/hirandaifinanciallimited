@@ -32,6 +32,7 @@ export const BRANCH_PINCODES: Record<string, string> = {
   "bikaner": "334001",
   "bilaspur": "495001",
   "chennai": "600001",
+  "CBE-GANDHIPURAM": "641014",
   "gwalior": "474001",
   "hyderabad": "500001",
   "indore": "452001",
@@ -41,6 +42,7 @@ export const BRANCH_PINCODES: Record<string, string> = {
   "jodhpur": "342001",
   "kalyan": "421301",
   "lucknow": "226001",
+  "MADURAI": "625001",
   "mumbai": "400001",
   "nagpur": "440001",
   "nashik": "422001",
@@ -69,6 +71,8 @@ const WORKFLOW_EXECUTION_ENDPOINT = `${API_BASE_URL}/alpha/v1/workflow/execution
 // Authentication credentials from environment variables
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET;
+const X_TENANT_DOMAIN = import.meta.env.VITE_X_TENANT_DOMAIN;
+
 
 // Function to get authentication token
 const getAuthToken = async (): Promise<string> => {
@@ -76,8 +80,9 @@ const getAuthToken = async (): Promise<string> => {
     const response = await fetch(AUTH_ENDPOINT, {
       method: "POST",
       headers: {
-        "X-Platform": "PARTNER_API",
+        "X-Platform": "EMPLOYEE_API",
         "Content-Type": "application/json",
+        "X-tenant-domain": X_TENANT_DOMAIN
       },
       body: JSON.stringify({
         client_id: CLIENT_ID,
@@ -109,14 +114,16 @@ const buildWorkflow = async (applicationId: string, token: string): Promise<any>
       workflow_type: "LEAD_CREATION",
       source_id: String(applicationId)
     };
-    
+
     console.log("Workflow build payload:", payload);
-    
+
     const response = await fetch(WORKFLOW_BUILD_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${token}`,
+        "X-tenant-domain": X_TENANT_DOMAIN,
+        "X-Platform": "EMPLOYEE_API"
       },
       body: JSON.stringify(payload),
     });
@@ -146,14 +153,16 @@ const executeWorkflow = async (applicationId: string, stepId: string, token: str
       source_id: String(applicationId),
       execute_step_id: String(stepId)
     };
-    
+
     console.log("Workflow execution payload:", payload);
-    
+
     const response = await fetch(WORKFLOW_EXECUTION_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${token}`,
+        "X-tenant-domain": X_TENANT_DOMAIN,
+        "X-Platform": "EMPLOYEE_API"
       },
       body: JSON.stringify(payload),
     });
@@ -194,8 +203,8 @@ export const submitLoanRequest = async (data: LoanRequest): Promise<any> => {
       "application.apply_capacity": "PERSON",
       "application.employment_type": "SALARIED",
       "application.salutation": "Mrs",
-      "application.loan_type_code": "HL",
-      "application.loan_info[0].sub_loan_type": "201",
+      "application.loan_type_code": "LAP",
+      "application.loan_info[0].sub_loan_type": "203",
       "application.applicant_name": `${firstName} ${lastName}`,
       "application.mobile": data.phone,
       "application.email": data.email,
@@ -210,7 +219,7 @@ export const submitLoanRequest = async (data: LoanRequest): Promise<any> => {
       "applicants[0].personal.email": data.email,
       "applicants[0].personal.first_name": firstName,
       "applicants[0].personal.last_name": lastName,
-      "application.loan_amount": data.loanAmount || "3500000",
+      "application.loan_amount": String(data.loanAmount || "3500000"),
       // "application.terms_and_conditions": 1
     };
 
@@ -219,7 +228,10 @@ export const submitLoanRequest = async (data: LoanRequest): Promise<any> => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${token}`,
+        "X-tenant-domain": X_TENANT_DOMAIN,
+        "X-Platform": "EMPLOYEE_API"
+
       },
       body: JSON.stringify(payload),
     });
@@ -246,12 +258,12 @@ export const submitLoanRequest = async (data: LoanRequest): Promise<any> => {
     if (!firstStage || !firstStage.steps || !firstStage.steps.length) {
       throw new Error("No stages or steps found in the workflow response");
     }
-    
+
     const firstStep = firstStage.steps[0];
     if (!firstStep || !firstStep.id) {
       throw new Error("First step ID not found in the workflow response");
     }
-    
+
     const firstStepId = String(firstStep.id);
     console.log("First step ID:", firstStepId);
 

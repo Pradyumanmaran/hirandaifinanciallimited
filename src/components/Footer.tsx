@@ -26,10 +26,11 @@ const Footer = () => {
           </div>
           <div>
             <h3 className="text-xl font-bold mb-4">Contact Us</h3>
-            <p>Corporate Office:</p>
-            <p>Edelweiss House</p>
-            <p> Off C.S.T. Road</p>
-            <p>Kalina , Mumbai-400098</p>
+            {/*<p>Corporate Office:</p>*/}
+            <p>Sigma Building, Technology St,</p>
+            <p>Hiranandani Gardens,</p>
+            <p>Sainath Nagar, Powai,</p>
+            <p>Kalina , Mumbai-400076</p>
           </div>
           <div>
             <h3 className="text-xl font-bold mb-4">Connect With Us</h3>

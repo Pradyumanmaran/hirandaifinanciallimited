@@ -17,14 +17,14 @@ const Header = () => {
         <div className="flex items-center justify-between py-2">
           <div className="flex items-center space-x-4">
             <img 
-              src="https://s3.ap-south-1.amazonaws.com/cdn.lendingstack.in/lendingstack/tenant/Edelweiss.jpg"
+              src="https://hfs.in/wp-content/uploads/2022/07/logo.png"
               alt="CBHFL Logo" 
               className="h-16 object-contain" 
             />
           </div>
           <div className="flex items-center space-x-4 text-sm">
             <div className="flex items-center text-gray-600">
-              <span className="mr-2">Loan@edelweiss.in</span>
+              <span className="mr-2">Loan@hfs.in</span>
               <span className="mx-2">|</span>
               <span>1800-123-4567</span>
             </div>

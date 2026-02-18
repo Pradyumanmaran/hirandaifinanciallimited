@@ -72,6 +72,7 @@ const WORKFLOW_EXECUTION_ENDPOINT = `${API_BASE_URL}/alpha/v1/workflow/execution
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET;
 const X_TENANT_DOMAIN = import.meta.env.VITE_X_TENANT_DOMAIN;
+const X_PLATFORM = import.meta.env.VITE_X_PLATFORM;
 
 
 // Function to get authentication token
@@ -80,7 +81,7 @@ const getAuthToken = async (): Promise<string> => {
     const response = await fetch(AUTH_ENDPOINT, {
       method: "POST",
       headers: {
-        "X-Platform": "EMPLOYEE_API",
+        "X-Platform": X_PLATFORM,
         "Content-Type": "application/json",
         "X-tenant-domain": X_TENANT_DOMAIN
       },
@@ -123,7 +124,7 @@ const buildWorkflow = async (applicationId: string, token: string): Promise<any>
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,
         "X-tenant-domain": X_TENANT_DOMAIN,
-        "X-Platform": "EMPLOYEE_API"
+        "X-Platform": X_PLATFORM
       },
       body: JSON.stringify(payload),
     });
@@ -162,7 +163,7 @@ const executeWorkflow = async (applicationId: string, stepId: string, token: str
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,
         "X-tenant-domain": X_TENANT_DOMAIN,
-        "X-Platform": "EMPLOYEE_API"
+        "X-Platform": X_PLATFORM
       },
       body: JSON.stringify(payload),
     });
@@ -230,7 +231,7 @@ export const submitLoanRequest = async (data: LoanRequest): Promise<any> => {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,
         "X-tenant-domain": X_TENANT_DOMAIN,
-        "X-Platform": "EMPLOYEE_API"
+        "X-Platform": X_PLATFORM
 
       },
       body: JSON.stringify(payload),
